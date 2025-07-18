@@ -8,6 +8,10 @@ if (!MONGO_URI) {
 }
 
 const connectDB = async (): Promise<void> => {
+  if (process.env.NODE_ENV === 'test') {
+    console.log('🧪 Usando MongoMemoryServer para tests.')
+    return
+  }
   try {
     const conn = await mongoose.connect(MONGO_URI)
     console.log(`✅ MongoDB conectado: ${conn.connection.host}`)
