@@ -1,12 +1,13 @@
-import express, { Application, Request, Response } from 'express'
 import dotenv from 'dotenv'
+dotenv.config()
+
+import express, { Application, Request, Response } from 'express'
 import cors from 'cors'
 import connectDB from '@config/db'
 import taskRoutes from '@routes/taskRoutes'
 import authRoutes from '@routes/authRoutes'
 import { errorHandler } from '@middleware/errorHandler'
 
-dotenv.config()
 
 // Conectar DB
 connectDB()
