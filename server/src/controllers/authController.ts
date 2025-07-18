@@ -24,6 +24,7 @@ export const registerUser = async (req: AuthRequest, res: Response) => {
       token: generateToken(user._id.toString()),
     })
   } catch (error) {
+    console.error(error)
     res.status(500).json({ message: 'Error al registrar usuario' })
   }
 }
