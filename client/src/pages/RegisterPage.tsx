@@ -1,4 +1,5 @@
 import RegisterForm from '@/components/auth/RegisterForm'
+import { Link } from 'react-router-dom'
 
 export default function RegisterPage() {
   return (
@@ -8,11 +9,11 @@ export default function RegisterPage() {
         <RegisterForm />
         <p className="mt-4 text-center text-sm text-gray-600">
           ¿Ya tienes una cuenta?{' '}
-          <a href="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="text-blue-600 hover:underline">
             Inicia sesión aquí
-          </a>
+          </Link>
         </p>
       </div>
     </main>
-  );
+  )
 }

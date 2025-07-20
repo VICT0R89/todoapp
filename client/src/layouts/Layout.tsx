@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import type { LayoutProps } from '@/interfaces/layout.type'
+import { Toaster } from 'react-hot-toast'
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
@@ -9,6 +10,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Header />
       <main className="flex-grow container mx-auto p-4">{children}</main>
       <Footer />
+      <Toaster position="top-right" />
     </div>
   )
 }
