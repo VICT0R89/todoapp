@@ -8,6 +8,8 @@ import HomePage from './pages/HomePage'
 import LoginPage from '@/pages/LoginPage.tsx'
 import RegisterPage from '@/pages/RegisterPage.tsx'
 import ProfilePage from './pages/ProfilePage'
+import TasksPage from '@/pages/TasksPage'
+import TaskFormPage from '@/pages/TaskFormPage'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,6 +21,9 @@ createRoot(document.getElementById('root')!).render(
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="/tasks" element={<TasksPage />} />
+            <Route path="/tasks/new" element={<TaskFormPage />} />
+            <Route path="/tasks/:id/edit" element={<TaskFormPage />} />
           </Route>
         </Routes>
       </AuthProvider>

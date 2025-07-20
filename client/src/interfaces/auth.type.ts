@@ -1,13 +1,8 @@
-export interface RegisterData {
-  name: string;
-  email: string;
-  password: string;
-}
+import type { z } from 'zod'
+import { loginSchema, registerSchema } from '@/validations/auth.schema'
 
-export interface LoginData {
-  email: string;
-  password: string;
-}
+export type LoginData = z.infer<typeof loginSchema>
+export type RegisterData = z.infer<typeof registerSchema>
 
 export interface AuthResponse {
   _id: string;
