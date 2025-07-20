@@ -1,5 +1,6 @@
 import { useAuth } from '@/context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { getInitials } from '@/utils/stringUtils'
 
 export default function ProfilePage() {
   const { user, logout } = useAuth()
@@ -15,24 +16,34 @@ export default function ProfilePage() {
     navigate('/login')
   }
 
+  const handleTasks = () => navigate('/tasks')
+  const initials = getInitials(user.name)
+
   return (
-    <main className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Perfil de Usuario</h1>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
+      <div className="bg-white shadow-lg rounded-xl p-8 max-w-md w-full text-center">
+        <div className="flex flex-col items-center mb-6">
+          <div className="w-20 h-20 rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold mb-4">
+            {initials}
+          </div>
+          <h1 className="text-2xl font-bold mb-1">{user.name}</h1>
+          <p className="text-gray-600">{user.email}</p>
+        </div>
 
-      <div className="max-w-md bg-white shadow-md rounded-lg p-6">
-        <p className="mb-4">
-          <strong>Nombre:</strong> {user.name}
-        </p>
-        <p className="mb-4">
-          <strong>Email:</strong> {user.email}
-        </p>
-
-        <button
-          onClick={handleLogout}
-          className="mt-4 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded"
-        >
-          Cerrar sesión
-        </button>
+        <div className="flex flex-col space-y-3">
+          <button
+            onClick={handleTasks}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition"
+          >
+            Ver Mis Tareas
+          </button>
+          <button
+            onClick={handleLogout}
+            className="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded transition"
+          >
+            Cerrar Sesión
+          </button>
+        </div>
       </div>
     </main>
   )

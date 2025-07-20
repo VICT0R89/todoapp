@@ -1,41 +1,16 @@
-import { useEffect, useState } from 'react'
-import type { Task } from '@/interfaces/task.type'
-import { fetchTasks, deleteTask } from '@/api/tasks'
-import { useAuth } from '@/context/AuthContext'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ConfirmModal from '@/components/ui/ConfirmModal'
-import toast from 'react-hot-toast'
 import Spinner from '@/components/ui/Spinner'
+import useTasks from '@/hooks/useTasks'
+import useTaskFilter from '@/hooks/useTaskFilter'
+import StatusFilter from '@/components/tasks/StatusFilter'
 
 export default function TaskList() {
-  const { user } = useAuth()
-  const token = user?.token
-  const [tasks, setTasks] = useState<Task[]>([])
-  const [loading, setLoading] = useState(true)
+  const { tasks, loading, deletingId, handleDelete } = useTasks()
+  const { status, setStatus, filteredTasks } = useTaskFilter(tasks)
   const [confirmId, setConfirmId] = useState<string | null>(null)
-  const [deletingId, setDeletingId] = useState<string | null>(null)
   const navigate = useNavigate()
-
-  useEffect(() => {
-    setLoading(true)
-    fetchTasks(token!)
-      .then(setTasks)
-      .catch(() => toast.error('Error al cargar tareas'))
-      .finally(() => setLoading(false))
-  }, [token])
-
-  const handleDelete = async (id: string) => {
-    setDeletingId(id)
-    try {
-      await deleteTask(id, token!)
-      setTasks(tasks.filter(t => t._id !== id))
-      toast.success('Tarea eliminada')
-    } catch {
-      toast.error('Error al eliminar tarea')
-    }
-    setDeletingId(null)
-    setConfirmId(null)
-  }
 
   if (loading) {
     return (
@@ -48,15 +23,18 @@ export default function TaskList() {
 
   return (
     <div className="max-w-xl mx-auto p-4">
-      <button
-        onClick={() => navigate('/tasks/new')}
-        className="mb-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-      >
-        Nueva tarea
-      </button>
+      <div className="flex justify-between items-center mb-4">
+        <button
+          onClick={() => navigate('/tasks/new')}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+        >
+          Nueva tarea
+        </button>
+        <StatusFilter status={status} setStatus={setStatus} />
+      </div>
 
       <ul className="space-y-2">
-        {tasks.map(t => (
+        {filteredTasks.map(t => (
           <li
             key={t._id}
             className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 border rounded shadow-sm"
@@ -95,7 +73,10 @@ export default function TaskList() {
       {confirmId && (
         <ConfirmModal
           message="¿Confirmar eliminación?"
-          onConfirm={() => handleDelete(confirmId)}
+          onConfirm={() => {
+            handleDelete(confirmId)
+            setConfirmId(null)
+          }}
           onCancel={() => setConfirmId(null)}
         />
       )}
