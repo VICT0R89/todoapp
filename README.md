@@ -1,4 +1,4 @@
-# 📝 ToDo App — Pila MERN
+# 📝 ToDo App — Pila MERN - MVP
 
 Aplicación web full stack para gestionar tareas diarias. Permite a los usuarios crear, editar, marcar como completadas y eliminar tareas.  
 Desarrollada como parte de mi portfolio para practicar la pila **MERN**: **MongoDB**, **Express.js**, **React**, y **Node.js**.
@@ -56,6 +56,7 @@ Crea un archivo .env dentro de /server con tu conexión a MongoDB Atlas y tu cla
 ```
 MONGO_URI=
 JWT_SECRET=
+PORT=5000
 ```
 
 5. **Ejecuta servidor**
@@ -77,11 +78,11 @@ npm run dev
 
 **Frontend:** Vercel
 
-**Backend:** Render o Fly.io
+**Backend:** Render
 
 **Base de datos:** MongoDB Atlas
 
-Cuando el despliegue esté activo, agregaré los enlaces aquí para acceso directo.
+**Live in:** https://todoapp-pi-navy.vercel.app/
 
 ## ✨ Autor
 Desarrollado por **Víctor Gutiérrez.**

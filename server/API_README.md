@@ -64,6 +64,21 @@ Obtiene todas las tareas del usuario.
 ]
 ```
 
+### GET /api/tasks/:id
+Obtiene la tareas del usuario por id.  
+**Respuesta:** 200 OK
+```json
+{
+  "_id": "task_id",
+  "title": "Comprar pan",  
+  "description": "Para el desayuno",  
+  "completed": false,  
+  "user": "user_id",  
+  "createdAt": "2025-07-18T12:00:00Z",  
+  "updatedAt": "2025-07-18T12:00:00Z"  
+}
+```
+
 ### POST /api/tasks  
 Crea una nueva tarea.  
 **Body:**
@@ -86,7 +101,7 @@ Crea una nueva tarea.
 }
 ```
 
-### PUT /api/tasks/:id  
+### PUT /api/tasks/:id
 Actualiza una tarea existente.  
 **Body** (puede incluir cualquiera de estos campos):
 ```json
